@@ -2,8 +2,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    puts "This is the order: #{@order.line_items.each {|li| puts li.product.to_s}}"
-    @order
+    line_items = @order.line_items
   end
 
   def create
