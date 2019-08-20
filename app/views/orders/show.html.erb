@@ -5,7 +5,18 @@
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+    <h3>Thank you for your order!</h3>
+    <p>Your order was successfully processed.</p>
+  </div>
+
+  <header class="page-header">
+    <h2>Order Details</h2>
+  </header>
+
+  <div class="order-summary jumbotron">
+    <h4>Email: </h4>
+    <h4>Order Total: </h4>
+    <%# render 'item', product: item[:product], quantity: item[:quantity].to_i %>
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
