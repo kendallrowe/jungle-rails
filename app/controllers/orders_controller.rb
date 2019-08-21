@@ -2,7 +2,14 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    line_items = @order.line_items
+    @line_items = @order.line_items
+    # line_items.each do |i|
+    #   puts "These are the line items #{i}"
+    #   puts "This is the product: #{i.product.name}"
+    #   puts "This is the product: #{i.product.description}"
+    #   puts "This is the product: #{i.product.image}"
+    #   puts "This is the product: #{i.product.quantity}"
+    # end
   end
 
   def create
