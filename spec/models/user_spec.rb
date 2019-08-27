@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
   describe ".authenticate_with_credentials" do
     subject { described_class.new(first_name: "Kendall",
       last_name: "Rowe",
-      email: "kendall.rowe312@gmail.com",
+      email: "KENdall.rowe312@gmail.com",
       password: "123456",
       password_confirmation: "123456"
     )}  
@@ -96,5 +96,22 @@ RSpec.describe User, type: :model do
         "12345" 
       )).to be_nil
     end
+
+    it "is valid with leading or trailing spaces on email" do
+      subject.save
+      expect(User.authenticate_with_credentials(
+        "  kendall.rowe312@gmail.com    ",
+        "123456" 
+      )).to_not be_nil
+    end
+
+    it "is valid with different cases in email" do
+      subject.save
+      expect(User.authenticate_with_credentials(
+        "  kendall.rowe312@gmail.COM    ",
+        "123456" 
+      )).to_not be_nil
+    end
+    
   end
 end
