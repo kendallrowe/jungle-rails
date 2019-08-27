@@ -4,8 +4,8 @@ RSpec.describe User, type: :model do
   subject { described_class.new(first_name: "Kendall",
     last_name: "Rowe",
     email: "kendall.rowe312@gmail.com",
-    password: "1234",
-    password_confirmation: "1234"
+    password: "123456",
+    password_confirmation: "123456"
   )}
     
   describe "Validations" do
@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
     
     context "passwords" do
       it "is not valid with not matching password_confirmation" do
-        subject.password_confirmation = "4321"
+        subject.password_confirmation = "654321"
         subject.save
         expect(subject).to_not be_valid
       end
@@ -34,8 +34,8 @@ RSpec.describe User, type: :model do
       duplicate_email_user = User.create(first_name: "Copy",
         last_name: "Cat",
         email: "kendall.rowe312@gmail.com",
-        password: "1234",
-        password_confirmation: "1234"
+        password: "123456",
+        password_confirmation: "123456"
       ) 
       expect(duplicate_email_user).to_not be_valid
     end
@@ -54,6 +54,13 @@ RSpec.describe User, type: :model do
     it "is not valid without a last name" do
       subject.last_name = nil
       expect { subject.save }.to raise_error
+    end
+
+    it "is not valid if password is less than 5 characters" do
+      subject.password = "123"
+      subject.password_confirmation = "123"
+      subject.save
+      expect(subject.errors.full_messages[0]).to eql("Password is too short (minimum is 5 characters)")
     end
 
   end
