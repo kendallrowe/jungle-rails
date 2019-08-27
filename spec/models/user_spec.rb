@@ -1,26 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
+  subject { described_class.new(first_name: "Kendall",
+    last_name: "Rowe",
+    email: "kendall.rowe312@gmail.com",
+    password: "1234",
+    password_confirmation: "1234"
+  )}
+    
   describe "Validations" do
     it "is valid with valid attributes" do
-      expect(User.create(first_name: "Kendall",
-        last_name: "Rowe",
-        email: "kendall.rowe312@gmail.com",
-        password: "1234",
-        password_confirmation: "1234"
-      )).to be_valid
+      subject.save
+      expect(subject).to be_valid
     end
     
-    # context "passwords" do
-    #   it "is valid with valid attributes" do
-    #     expect(cat1.products.new(name: "Kendall",
-    #     description: "hihi",
-    #     price: 10,
-    #     quantity: 3,
-    #   )).to be_valid
-    #   end
-    # end
+    context "passwords" do
+      it "is not valid with not matching password_confirmation" do
+        subject.password_confirmation = "4321"
+        subject.save
+        expect(subject).to_not be_valid
+      end
+
+      it "is not valid with nil password_confirmation" do
+        subject.password = "Hi"
+        subject.password_confirmation = nil
+        subject.save
+        expect(subject).to_not be_valid
+      end
+    end
 
     # it "is not valid without a name" do
     #   expect(cat1.products.create(name: nil,
