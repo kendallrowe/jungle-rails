@@ -29,37 +29,32 @@ RSpec.describe User, type: :model do
       end
     end
 
-    # it "is not valid without a name" do
-    #   expect(cat1.products.create(name: nil,
-    #     description: "hihi",
-    #     price: 10,
-    #     quantity: 3,
-    #   ).errors.full_messages[0]).to eq "Name can't be blank"      
-    # end
+    it "is not valid if user with email already exists" do
+      subject.save
+      duplicate_email_user = User.create(first_name: "Copy",
+        last_name: "Cat",
+        email: "kendall.rowe312@gmail.com",
+        password: "1234",
+        password_confirmation: "1234"
+      ) 
+      expect(duplicate_email_user).to_not be_valid
+    end
 
-    # it "is not valid without a price" do
-    #   expect(cat1.products.create(name: "Kendall",
-    #     description: "hihi",
-    #     price: nil,
-    #     quantity: 3,
-    #   ).errors.full_messages[0]).to eq "Price cents is not a number"      
-    # end
 
-    # it "is not valid without a quantity" do
-    #   expect(cat1.products.create(name: "Kendall",
-    #     description: "hihi",
-    #     price: 10,
-    #     quantity: nil,
-    #   ).errors.full_messages[0]).to eq "Quantity can't be blank"      
-    # end
+    it "is not valid without an email" do
+      subject.email = nil
+      expect { subject.save }.to raise_error
+    end
 
-    # it "is not valid without a category" do
-    #   expect(Product.create(name: "Kendall",
-    #     description: "hihi",
-    #     price: 10,
-    #     quantity: 3,
-    #   ).errors.full_messages[0]).to eq "Category can't be blank"      
-    # end
+    it "is not valid without a first name" do
+      subject.first_name = nil
+      expect { subject.save }.to raise_error
+    end
+
+    it "is not valid without a last name" do
+      subject.last_name = nil
+      expect { subject.save }.to raise_error
+    end
 
   end
 end
