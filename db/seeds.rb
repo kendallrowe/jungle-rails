@@ -106,7 +106,7 @@ cat2.products.create!({
   image: 'https://krjunglebucket.s3.ca-central-1.amazonaws.com/electronics3.jpg',
   quantity: 32,'),
   price: 2_026.29'),
-})'),
+}),
 
 cat3.products.create!({
   name:  'Optimal Sleeping Bed',
@@ -119,7 +119,7 @@ cat3.products.create!({
 cat3.products.create!({
   name:  'Electric Chair',
   description: Faker::Hipster.paragraph(4),
-  image: open_asset('https://krjunglebucket.s3.ca-central-1.amazonaws.com/furniture2.jpg'),
+  image: 'https://krjunglebucket.s3.ca-central-1.amazonaws.com/furniture2.jpg',
   quantity: 2,
   price: 987.65
 })
@@ -127,7 +127,7 @@ cat3.products.create!({
 cat3.products.create!({
   name:  'Red Bookshelf',
   description: Faker::Hipster.paragraph(4),
-  image: open_asset('https://krjunglebucket.s3.ca-central-1.amazonaws.com/furniture3.jpg'),
+  image: 'https://krjunglebucket.s3.ca-central-1.amazonaws.com/furniture3.jpg',
   quantity: 0,
   price: 2_483.75
 })
