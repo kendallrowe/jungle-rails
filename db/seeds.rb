@@ -104,14 +104,14 @@ cat2.products.create!({
   name:  'World\'s Largest Smartwatch',
   description: Faker::Hipster.paragraph(4),
   image: 'https://krjunglebucket.s3.ca-central-1.amazonaws.com/electronics3.jpg',
-  quantity: 32,'),
-  price: 2_026.29'),
-}),
+  quantity: 32,
+  price: 2_026.29
+})
 
 cat3.products.create!({
   name:  'Optimal Sleeping Bed',
   description: Faker::Hipster.paragraph(4),
-  image: 'https://krjunglebucket.s3.ca-central-1.amazonaws.com/furniture1.jpg'),
+  image: 'https://krjunglebucket.s3.ca-central-1.amazonaws.com/furniture1.jpg',
   quantity: 320,
   price: 3_052.00
 })
