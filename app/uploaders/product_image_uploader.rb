@@ -4,17 +4,51 @@ class ProductImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
+  def initialize(*)
+    super
+    CarrierWave.configure do |config| 
+      config.permissions = 0644
+      config.directory_permissions = 0755
+      config.storage_engines = {
+        :file => "CarrierWave::Storage::File",
+        :fog  => "CarrierWave::Storage::Fog"
+      }
+      config.storage = :file
+      config.cache_storage = nil
+      config.fog_attributes = {}
+      config.fog_credentials = {}
+      config.fog_public = true
+      config.fog_authenticated_url_expiration = 600
+      config.fog_use_ssl_for_aws = true
+      config.fog_aws_accelerate = false
+      config.store_dir = 'uploads'
+      config.cache_dir = 'uploads/tmp'
+      config.delete_tmp_file_after_storage = true
+      config.move_to_cache = false
+      config.move_to_store = false
+      config.remove_previously_stored_files_after_update = true
+      config.downloader = CarrierWave::Downloader::Base
+      config.ignore_integrity_errors = true
+      config.ignore_processing_errors = true
+      config.ignore_download_errors = true
+      config.validate_integrity = true
+      config.validate_processing = true
+      config.validate_download = false
+      config.root = lambda { CarrierWave.root }
+      config.base_path = CarrierWave.base_path
+      config.enable_processing = true
+      config.ensure_multipart_form = true
+    end
+  end
   # include CarrierWave::MiniMagick
-
+  
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  end
+  
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -42,9 +76,7 @@ class ProductImageUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  def extension_white_list
-    %w(jpg jpeg png)
-  end
+  
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
